@@ -6,6 +6,9 @@ OUTDIR=igvfox
 
 all: run
 
+igvfox.xpi: xpi
+	mv $(OUTDIR)/$@ ./
+
 xpi test run: ${CFX} ${OUTDIR}/data/IGV_64.png
 	(cd ${OUTDIR}; ../${CFX} $@)
 

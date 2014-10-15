@@ -4,6 +4,23 @@
   "id": "igvfox@univ-nantes.fr",
   "description": "a basic add-on",
   "author": "Pierre Lindenbaum PhD",
-  "license": "MPL 2.0",
-  "version": "0.1"
+  "license": "Apache 2.0",
+  "version": "0.1",
+  "homepage":"http://plindenbaum.blogspot.com",
+  "icon": "data/IGV_64.png",
+  "icon64": "data/IGV_64.png",
+  "preferences":[
+	{
+	"type": "string",
+    "name": "igvhost",
+    "value": "localhost",
+    "title": "Host"
+	},
+     {
+    "name": "igvport",
+    "type": "integer",
+    "value": 6000,
+    "title": "Port Socket",
+    "hidden": false
+    }]
 }

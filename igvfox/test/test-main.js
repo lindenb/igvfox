@@ -44,9 +44,16 @@ function test_rcp(assert)
 		}
 	}
 
+function test_preferences()
+	{
+console.log("HOST :"+require('sdk/simple-prefs').prefs['igvhost']);
+console.log("PORT :"+require('sdk/simple-prefs').prefs['igvport']);
+}
+
 exports["test main"] = function(assert) {
   assert.pass("unit test running!");
   test_rcp(assert);
+  test_preferences();
 };
 
 exports["test main async"] = function(assert, done) {
