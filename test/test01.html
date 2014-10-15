@@ -1,0 +1,27 @@
+<html><head>
+<script>
+function ping()
+	{
+	try
+		{
+
+	        window.postMessage("message", "http://my-domain.org/");
+
+	/*
+		var event = document.createEvent('CustomEvent');
+       		event.initCustomEvent("addon-message", true, true,
+			{ chrom: '1', start:100,end:200 });
+       		document.documentElement.dispatchEvent(event); */
+		}
+	catch(err)
+		{
+		console.log("errr");
+		alert("error:"+err);
+		}
+	console.log("ping done");
+	}
+</script>
+</head>
+<body>
+<button onclick="ping()">Hyperlink</button>
+</body></html>
