@@ -4,15 +4,25 @@ var main = require("./main");
 
 function test_rcp(assert)
 	{
-	var sockectFactory = null;
+	var socketFactory = null;
 	var socket = null;
+	var port=6020;
 	try
 		{
 		var xx2;
-		sockectFactory = Cc["@mozilla.org/tcp-socket;1"].createInstance(Ci.nsIDOMTCPSocket);
+		socketFactory = Cc["@mozilla.org/tcp-socket;1"].createInstance(Ci.nsIDOMTCPSocket);
 		
-		assert.ok(sockectFactory!=null,"got socket");
-		sockectFactory.ondata = function(event)
+		assert.ok(socketFactory!=null,"got socket");
+		console.log("## open localhost");
+		socket = socketFactory.open('127.0.0.1',port,{"useSecureTransport":false});
+		socket.onopen = function(event)
+                        {
+                        console.log("##callback onopen called. Sending>>>>");
+                        socket.send("ATAGCTACGTGCTAGATCGATCT");
+                        console.log("## ok Sent DNA");
+                        socket.close();
+                        }
+		socket.ondata = function(event)
 			{
 			if (typeof event.data === 'string') {
 			    console.log('Get a string: ' + event.data);
@@ -20,16 +30,9 @@ function test_rcp(assert)
 			    console.log('Get a Uint8Array');
 				  }
 			};
-		sockectFactory.onopen = function(event)
-			{
-			 console.log("## onopen called");
-			}
-		console.log("## open localhost");
-		sockect = sockectFactory.open('127.0.0.1', 80,{"useSecureTransport":false});
-		console.log("## ok, "+ sockect+" open. Sending");
-		sockect.send("ATAGCTACGTGCTAGATCGATCT");
+		console.log("## ok, socket open on port "+port);
+		console.log(""+socket.readyState);
 		assert.pass("test RCP completed.");
-		console.log("## ok Sent DNA");
 		}
 	catch(err)
 		{
@@ -38,16 +41,16 @@ function test_rcp(assert)
 		}
 	finally
 		{
-		if(socket!=null) socket.close();
 		}
 	}
 
 exports["test main"] = function(assert) {
   assert.pass("unit test running!");
+  test_rcp(assert);
 };
 
 exports["test main async"] = function(assert, done) {
-  test_rcp(assert);
+  assert.pass("async test running");
   done();
 };
 
