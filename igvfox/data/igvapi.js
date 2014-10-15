@@ -1,6 +1,7 @@
-*window.addEventListener("addon-message", function(event) {
-  console.log("winnnn "+event.detail);
-  sendAsyncMessage("my-addon@me.org:my-e10s-extension-message",{details : "Hello adzazdazd" });
+window.addEventListener("mousedown", function(event) {
+  console.log("igvapi.js: "+event);
+  self.postMessage("HelloWorld from IGVAPI");
+  console.log("message posted");
 }, false);
 
 

@@ -8,12 +8,10 @@ var pageWorker = pageMod.PageMod({
 	{
 	console.log("on aatch called #####################");// https://github.com/Rik/longdesk/blob/77001c520487b39ce3288e17762b5ba4eccbb612/lib/main.js
 	worker.on('message', function(message) {
-  console.log(message.name);
-  console.log(message.sync);
-  console.log(message.data);
-  console.log(message.target);
-  console.log(message.objects);
-		});
+console.log("RECEIVED MESSAGE FROM CALLER!!!");
+for(k in message) 
+  console.log("message.["+k+"]"+message[k] );
+	});
 	}
 });
 
