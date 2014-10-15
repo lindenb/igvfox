@@ -1,0 +1,9 @@
+{
+  "name": "igvfox",
+  "title": "igvfox",
+  "id": "igvfox@univ-nantes.fr",
+  "description": "a basic add-on",
+  "author": "Pierre Lindenbaum PhD",
+  "license": "MPL 2.0",
+  "version": "0.1"
+}
