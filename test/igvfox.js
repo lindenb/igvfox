@@ -26,9 +26,63 @@ History:
 * 2014 creation
 
 */
+function IGVFox()	
+	{
+	}
 
-window.addEventListener("igvfox@univ-nantes.fr", function(event) {
-  self.postMessage(event.detail);
-}, false);
+IGVFox._dipatchEvent = function(param)
+	{
+	try
+		{
+		var event = document.createEvent('CustomEvent');
+       		event.initCustomEvent("igvfox@univ-nantes.fr", true, true,
+			);
+       		document.documentElement.dispatchEvent(event); 
+		}
+	catch(err)
+		{
+		console.log("Error: "+err);
+		}
+	};
 
+IGVFox.goTo = function(args)
+	{
+	switch(args.length)
+		{
+		case 0: return;
+		case 1:
+			{
+			var s= args[0];
+			var colon= s.indexOf(':');
+			if(colon==-1) return;
+			var hyphen= s.indexOf('-');
+			if(hyphen< colon)
+				{
+				IGVFox.goTo(
+					s.substring(0,colon) ,
+					s.substring(colon+1)
+					);
+				}
+			else
+				{
+				IGVFox.goTo(
+					s.substring(0,colon) ,
+					s.substring(colon+1,hyphen),
+					s.substring(hyphen+1),
+					);
+				}
+			break;
+			}
+		case 2:
+			{
+			IGVFox.goTo(args[0],args[1],args[1]);
+			break;
+			}
+		default:
+			{
+			IGVFox._dipatchEvent({"chrom": args[0] ,"start":args[1],"end":args[2]});
+			}
+		}
+	
+	};
 

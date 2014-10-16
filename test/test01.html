@@ -1,27 +1,11 @@
-<html><head>
-<script>
-function ping()
-	{
-	try
-		{
-
-	    //    window.postMessage("message", "http://my-domain.org/");
-
-	
-		var event = document.createEvent('CustomEvent');
-       		event.initCustomEvent("igvfoxmsg", true, true,
-			{ chrom: '1', start:100,end:200 });
-       		document.documentElement.dispatchEvent(event); 
-		}
-	catch(err)
-		{
-		console.log("errr");
-		alert("error:"+err);
-		}
-	console.log("ping done");
-	}
-</script>
+<html lang='en'>
+<head>
+<meta charset='utf-8'/>
+<script src="igvfox.js"></script>
 </head>
 <body>
-<button onclick="ping()">Hyperlink</button>
-</body></html>
+<button onclick="IGVFox.goTo('2',177189678,177199505)">'2',177189678,177199505</button><br/>
+<button onclick="IGVFox.goTo('2:177189678-177199505')">'2:177189678-177199505'</button></br>
+<button onclick="IGVFox.goTo('2:177189678')">"2:177189678"</button>
+</body>
+</html>

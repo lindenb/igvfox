@@ -1,26 +1,27 @@
 {
-  "name": "igvfox",
-  "title": "igvfox",
-  "id": "igvfox@univ-nantes.fr",
-  "description": "a basic add-on",
-  "author": "Pierre Lindenbaum PhD",
-  "license": "Apache 2.0",
-  "version": "0.1",
-  "homepage":"http://plindenbaum.blogspot.com",
-  "icon": "data/IGV_64.png",
-  "icon64": "data/IGV_64.png",
-  "preferences":[
-	{
-	"type": "string",
-    "name": "igvhost",
-    "value": "localhost",
-    "title": "Host"
-	},
-     {
-    "name": "igvport",
-    "type": "integer",
-    "value": 6000,
-    "title": "Port Socket",
-    "hidden": false
-    }]
+    "author": "Pierre Lindenbaum PhD @yokofaun", 
+    "description": "Integrative Genomics Viewer control  through mozilla Firefox", 
+    "homepage": "https://github.com/lindenb/jvarkit", 
+    "icon": "data/IGV_64.png", 
+    "icon64": "data/IGV_64.png", 
+    "id": "igvfox@univ-nantes.fr", 
+    "license": "Apache 2.0", 
+    "name": "igvfox", 
+    "preferences": [
+        {
+            "name": "igvhost", 
+            "title": "IGV Host", 
+            "type": "string", 
+            "value": "127.0.0.1"
+        }, 
+        {
+            "hidden": false, 
+            "name": "igvport", 
+            "title": "IGV Port Socket", 
+            "type": "integer", 
+            "value": 60151
+        }
+    ], 
+    "title": "IGVFox", 
+    "version": "0.1"
 }
