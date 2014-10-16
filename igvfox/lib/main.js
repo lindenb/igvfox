@@ -52,9 +52,6 @@ IGVController.prototype={
 	log: function(msg)
 		{
 		console.log("[IGVController] "+msg);
-		/*Cr.Cc["@mozilla.org/consoleservice;1"].
-			getService(Cr.Ci.nsIConsoleService).
-			logStringMessage("[IGVController] " +msg);*/
 		},
 	goTo : function (loc)
 		{
@@ -73,12 +70,6 @@ IGVController.prototype={
 			this.debug("opening on "+ this.getHost()+":"+this.getPort() );
 			socket = socketFactory.open( this.getHost(),this.getPort());
 			this.debug("got socket");
-			socket.onopen = function(event)
-		                {
-				me.debug("sending "+msg);
-		                socket.send(msg+"\n");
-		                socket.close();
-		                };
 			socket.ondata = function(event)
 				{
 				if (typeof event.data === 'string')
@@ -89,11 +80,25 @@ IGVController.prototype={
 					 {
 			   		 me.debug('Got a Uint8Array');
 				 	 }
+				socket.close();
 				};
 			socket.onerror = function(event)
 				{
-				me.log("[ERROR]" + event.data);
+				me.log("[TCP-ERROR]" + event.type +":"+ event.data);
 				};
+			socket.ondrain = function(event)
+				{
+				me.debug("[TCP-DRAIN]"+  event.type +":"+ event.data);
+				};
+			socket.close = function(event)
+				{
+				me.debug("[TCP-CLOSE]"+  event.type +":"+ event.data);
+				};
+			socket.onopen = function(event)
+		                {
+				me.debug("sending "+msg);
+		                socket.send(msg+"\n");
+		                };
 			}
 		catch(err)
 			{
@@ -105,7 +110,7 @@ IGVController.prototype={
 
 IGVController.handler = function(param )
 	{
-	new IGVController().goTo("2:177189678-177189679");
+	new IGVController().goTo(param);
 	};
 
 /* https://developer.mozilla.org/en-US/Add-ons/SDK/Tutorials/Creating_reusable_modules */
