@@ -32,3 +32,4 @@ download or compile **igvfox.xpi** and  open-it from a firefox window.
 * "Writing a Firefox Protocol Handler" http://mike.kaply.com/2011/01/18/writing-a-firefox-protocol-handler/
 * https://developer.mozilla.org/en-US/Firefox/Multiprocess_Firefox/The_message_manager
 * https://developer.mozilla.org/en-US/Add-ons/SDK/Guides/Content_Scripts
+* https://developer.mozilla.org/en-US/Add-ons/SDK/Tutorials/Creating_reusable_modules

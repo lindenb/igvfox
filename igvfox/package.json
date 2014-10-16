@@ -1,7 +1,7 @@
 {
     "author": "Pierre Lindenbaum PhD @yokofaun", 
     "description": "Integrative Genomics Viewer control  through mozilla Firefox", 
-    "homepage": "https://github.com/lindenb/jvarkit", 
+    "homepage": "https://github.com/lindenb/igvfox", 
     "icon": "data/IGV_64.png", 
     "icon64": "data/IGV_64.png", 
     "id": "igvfox@univ-nantes.fr", 

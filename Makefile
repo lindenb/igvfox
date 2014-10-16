@@ -4,7 +4,7 @@ CFX=addon-sdk-${sdk.version}/bin/cfx
 OUTDIR=igvfox
 
 
-all: run
+all: igvfox.xpi
 
 igvfox.xpi: xpi
 	mv $(OUTDIR)/$@ ./
@@ -19,7 +19,9 @@ ${OUTDIR}/data/IGV_64.png:
 	
 jetpack: ${CFX}
 ${CFX}:
-	curl -L -o "jetpack-sdk-${sdk.version}.zip" "https://ftp.mozilla.org/pub/mozilla.org/labs/jetpack/addon-sdk-${sdk.version}.zip" && \
+	curl -kL -o "jetpack-sdk-${sdk.version}.zip" "https://ftp.mozilla.org/pub/mozilla.org/labs/jetpack/addon-sdk-${sdk.version}.zip" && \
 	unzip -o "jetpack-sdk-${sdk.version}.zip" && \
 	rm -f "jetpack-sdk-${sdk.version}.zip"
 
+clean:
+	rm -rf addon-sdk-${sdk.version} igvfox.xpi

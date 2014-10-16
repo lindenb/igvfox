@@ -39,29 +39,27 @@ IGVController.prototype={
 	debugging : false,
 	getHost: function()
 		{
-		return preferences["igvhost"];
+		return preferences.prefs["igvhost"];
 		},
 	getPort: function()
 		{
-		return preferences["igvport"];
+		return parseInt(preferences.prefs["igvport"]);
 		},
 	debug: function(msg)
 		{
-		if(this.debugging) this.log(msg);
+		if(this.debugging) { this.log(msg); }
 		},
 	log: function(msg)
 		{
-		Cr.Cc["@mozilla.org/consoleservice;1"].
+		console.log("[IGVController] "+msg);
+		/*Cr.Cc["@mozilla.org/consoleservice;1"].
 			getService(Cr.Ci.nsIConsoleService).
-			logStringMessage("[IGVController] " +msg);
+			logStringMessage("[IGVController] " +msg);*/
 		},
-	sendGoto : function (param)
+	goTo : function (loc)
 		{
-		if(!("chrom" in param)) {this.log("chrom missing"); return;};
-		if(!("start" in param)) {this.log("start missing"); return;};
-		if(!("end" in param)) {this.log("end missing"); return;};
-		var msg="goto "+param["chrom"]+":"+param["start"]+"-"+param["end"];
-		this._send(msg);
+		this.debug("goto "+loc);
+		this._send("goto "+loc);
 		},
 	_send: function(msg)
 		{
@@ -70,8 +68,11 @@ IGVController.prototype={
 		var me=this;
 		try
 			{
-			socketFactory = Cc["@mozilla.org/tcp-socket;1"].createInstance(Ci.nsIDOMTCPSocket);
+			socketFactory = Cr.Cc["@mozilla.org/tcp-socket;1"].createInstance(Cr.Ci.nsIDOMTCPSocket);
+			this.debug("got socketFactory");
+			this.debug("opening on "+ this.getHost()+":"+this.getPort() );
 			socket = socketFactory.open( this.getHost(),this.getPort());
+			this.debug("got socket");
 			socket.onopen = function(event)
 		                {
 				me.debug("sending "+msg);
@@ -91,11 +92,12 @@ IGVController.prototype={
 				};
 			socket.onerror = function(event)
 				{
-				me.log('ERROR: ' + event.data);
+				me.log("[ERROR]" + event.data);
 				};
 			}
 		catch(err)
 			{
+			this.log("GOT EXCEPTION");
 			this.log(err);
 			}
 		}
@@ -103,11 +105,12 @@ IGVController.prototype={
 
 IGVController.handler = function(param )
 	{
-	if("chrom" in param && "start" in param && "end" in param)
-		{
-		new IGVController().sendGoto(param);
-		}
-	}
+	new IGVController().goTo("2:177189678-177189679");
+	};
+
+/* https://developer.mozilla.org/en-US/Add-ons/SDK/Tutorials/Creating_reusable_modules */
+exports.IGVController = IGVController;
+
 
 var pageWorker = pageMod.PageMod({
   include: ["*","file://*"], // https://forums.mozilla.org//viewtopic.php?f=27&p=30079&sid=eaf31e85683a806a96b5d096b95951f7

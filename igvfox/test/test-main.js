@@ -29,64 +29,26 @@ History:
 
 const { Cc, Ci, Cu } = require("chrome");
 
-var main = require("./main");
+var main = require("main.js");
 
-function test_rcp(assert)
+
+function testIGVController(assert)
 	{
-	var socketFactory = null;
-	var socket = null;
-	var port=6020;
-	try
-		{
-		var xx2;
-		socketFactory = Cc["@mozilla.org/tcp-socket;1"].createInstance(Ci.nsIDOMTCPSocket);
-		
-		assert.ok(socketFactory!=null,"got socket");
-		console.log("## open localhost");
-		socket = socketFactory.open('127.0.0.1',port,{"useSecureTransport":false});
-		socket.onopen = function(event)
-                        {
-                        console.log("##callback onopen called. Sending>>>>");
-                        socket.send("ATAGCTACGTGCTAGATCGATCT");
-                        console.log("## ok Sent DNA");
-                        socket.close();
-                        }
-		socket.ondata = function(event)
-			{
-			if (typeof event.data === 'string') {
-			    console.log('Get a string: ' + event.data);
-				  } else {
-			    console.log('Get a Uint8Array');
-				  }
-			};
-		console.log("## ok, socket open on port "+port);
-		console.log(""+socket.readyState);
-		assert.pass("test RCP completed.");
-		}
-	catch(err)
-		{
-		console.log("BOUM! "+err );
-		assert.error(err);
-		}
-	finally
-		{
-		}
+	var ctrl = new main.IGVController();
+	ctrl.debugging = true;
+	ctrl.goTo("2:177,193,360-177,195,816");
+	assert.pass("IGV goto");
 	}
 
-function test_preferences()
-	{
-console.log("HOST :"+require('sdk/simple-prefs').prefs['igvhost']);
-console.log("PORT :"+require('sdk/simple-prefs').prefs['igvport']);
-}
-
 exports["test main"] = function(assert) {
-  assert.pass("unit test running!");
-  test_rcp(assert);
-  test_preferences();
+ 
+  testIGVController(assert);
+ assert.pass("unit test running!");
 };
 
 exports["test main async"] = function(assert, done) {
   assert.pass("async test running");
+  testIGVController(assert);
   done();
 };
 
@@ -94,3 +56,4 @@ exports["test main async"] = function(assert, done) {
 
 
 require("sdk/test").run(exports);
+
