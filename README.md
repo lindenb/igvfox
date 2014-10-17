@@ -23,14 +23,17 @@ download the latest release: https://github.com/lindenb/igvfox/releases/latest
 
 
 
-##Setting preferences
+## Setting preferences
 
 in menu 'Add-ons', select the IGVfox plugin and set the host:port of IGV
 
 ![PreferencesPanel](https://raw.githubusercontent.com/lindenb/igvfox/master/doc/preferences.jpg)
 
 
-## Example
+## Example 
+
+<h3>_The two files below must be downloaded:</h3>
+
 
 There is an example under `test/test01.html` ( https://github.com/lindenb/igvfox/blob/master/test/test01.html )
 
@@ -63,8 +66,10 @@ this code is called from a HTML page:
 </tr>
 ```
 
+Open IGV, open test01.html in your browser , clicking on a hyperlink should invoke 'goto' in IGV.
 
-![PreferencesPanel](https://raw.githubusercontent.com/lindenb/igvfox/master/doc/screenshot01.png)
+
+![Screenshot](https://raw.githubusercontent.com/lindenb/igvfox/master/doc/screenshot01.png)
 
 
 
